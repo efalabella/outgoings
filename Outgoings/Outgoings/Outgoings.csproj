@@ -40,6 +40,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -65,9 +69,6 @@
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.6\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
     </Reference>
@@ -122,9 +123,11 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Outgoings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -184,22 +187,57 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="Scripts\jquery-1.7.1.intellisense.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.js" />
-    <Content Include="Scripts\jquery-ui-1.8.20.min.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
-    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\knockout-2.1.0.debug.js" />
-    <Content Include="Scripts\knockout-2.1.0.js" />
-    <Content Include="Scripts\modernizr-2.5.3.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="Partials\views\outgoings.html" />
+    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\controllers\controllers.js" />
+    <Content Include="Scripts\controllers\outgoings.js" />
+    <Content Include="Scripts\directives\directives.js" />
+    <Content Include="Scripts\directives\outgoings.js" />
+    <Content Include="Scripts\filters\filters.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-bootstrap-prettify.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-bootstrap-prettify.min.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-bootstrap.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-bootstrap.min.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-cookies.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-cookies.min.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-loader.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-loader.min.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-mocks.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-resource.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-resource.min.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-sanitize.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-sanitize.min.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular-scenario.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular.js" />
+    <Content Include="Scripts\lib\angular\1.0.6\angular.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-bootstrap-prettify.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-bootstrap-prettify.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-bootstrap.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-bootstrap.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-cookies.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-cookies.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-loader.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-loader.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-mobile.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-mobile.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-mocks.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-resource.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-resource.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-sanitize.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-sanitize.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular-scenario.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\angular.min.js" />
+    <Content Include="Scripts\lib\angular\1.1.4\version.txt" />
+    <Content Include="Scripts\lib\jQuery\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\lib\require\require-2.1.5.js" />
+    <Content Include="Scripts\lib\require\require-min-2.1.5.js" />
+    <Content Include="Scripts\lib\require\text.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\providers\providers.js" />
+    <Content Include="Scripts\routes.js" />
+    <Content Include="Scripts\services\outgoingsData.js" />
+    <Content Include="Scripts\services\services.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -214,11 +252,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Models\" />
+    <Folder Include="Partials\directives\" />
+    <Folder Include="Partials\footer\" />
+    <Folder Include="Partials\header\" />
+    <Folder Include="Scripts\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\lib\angular\1.1.4\version.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -234,9 +280,9 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
+          <DevelopmentServerPort>3642</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:2603/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
